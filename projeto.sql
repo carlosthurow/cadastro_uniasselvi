@@ -24,6 +24,7 @@ create table pedidos (
 NumeroPedido int not null auto_increment,
 DtPedido date not null,
 CodCliente int not null,
+SituacaoPedido enum('1','2','3'), #1-Aberto, 2-Pago, 3-Cancelado
 primary key (NumeroPedido),
 foreign key (CodCliente) references clientes(CodCliente)
 )default charset = utf8;
@@ -40,10 +41,14 @@ foreign key (CodProduto) references produtos(CodProduto)
 
 insert into clientes (CodCliente, NomeCliente, CPF, Email) values (default, 'Carlos', '01234567890', 'carlos@gmail.com');
 insert into produtos (CodProduto, NomeProduto, CodBarras, ValorUnitario) values (default, 'Produto de teste', '01234567890123456', '132.56');
-insert into pedidos (NumeroPedido, DtPedido, CodCliente) values (default, '2019-05-22', '1');
+insert into pedidos (NumeroPedido, DtPedido, CodCliente, SituacaoPedido) values (default, '2015-04-02', '1','3');
 insert into pedidos_produtos (Id, Quantidade, NumeroPedido, CodProduto) values (default, '5', '1', '1');
 
 select * from clientes;
 select * from produtos;
 select * from pedidos;
 select * from pedidos_produtos;
+
+alter table clientes
+drop column bb;
+

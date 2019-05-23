@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Projeto Uniasselvi</title>
+        <link rel="stylesheet" type="text/css" href="_css/estilo.css"/>
+    </head>
+    <body>
+        <div id="interface">
+            <header id="cabecalho">
+                <nav id="menu">
+                    <h1>Menu Principal</h1>
+                    <ul type="disc">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="clientes.html">Clientes</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="pedidos.html">Pedidos</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <section id="corpo">
+                <form method="POST" action="_php/insert.php">
+                    <input type="hidden" name="nometabela" value="pedidos"/>
+                    <input type="hidden" name="v1" value="NumeroPedido"/>
+                    <input type="hidden" name="v2" value="DtPedido"/>
+                    <input type="hidden" name="v3" value="CodCliente"/>
+                    <input type="hidden" name="v4" value="SituacaoPedido"/>
+                    Data do pedido: <input type="text" name="DtPedido"/>
+                    Codigo Cliente: <input type="text" name="CodCliente"/>
+                    Situação do pedido: <input type="text" name="SituacaoPedido"/>
+                    <input type="submit" value="Inserir"/>                    
+                </form>
+                <form method="POST" action="_php/select.php">
+                    <input type="hidden" name="nometabela" value="pedidos"/>
+                    <input type="hidden" name="v1" value="NumeroPedido"/>
+                    <input type="hidden" name="v2" value="DtPedido"/>
+                    <input type="hidden" name="v3" value="CodCliente"/>
+                    <input type="hidden" name="v4" value="SituacaoPedido"/>
+                    <input type="submit" value="Localizar"/>
+                </form>
+            </section>
+        </div>
+    </body>
+</html>
