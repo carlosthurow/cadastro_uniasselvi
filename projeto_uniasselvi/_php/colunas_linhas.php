@@ -1,5 +1,5 @@
 <?php
-include_once 'dados_conexao.php';
+include_once 'conexao.php';
 $nometabela = $_POST["nometabela"];
 
 try {

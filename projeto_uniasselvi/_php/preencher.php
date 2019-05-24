@@ -1,6 +1,6 @@
 <?php
-include_once 'dados_conexao.php';
-include 'colunas_linhas.php';
+include_once 'conexao.php';
+include_once 'colunas_linhas.php';
 $nometabela = $_POST["nometabela"];
 $col = $contador_colunas;
 $values = "";
@@ -11,7 +11,6 @@ $columns = "";
 for($i = 1; $i<=$col; $i++) {
     if(isset($_POST["v$i"])){
     $v[$i] = $_POST["v$i"];
-    echo "$v[$i]<br>";
     }
 }
 
