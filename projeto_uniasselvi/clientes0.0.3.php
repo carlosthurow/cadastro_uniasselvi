@@ -3,6 +3,7 @@ include('_php/conexao.php');
 
 //itens por pagina
 $itens_por_pagina = 20;
+//$itens_por_pagina = isset($_POST['items_por_pagina']);
 
 //pagina atual
 $pagina = intval($_GET['pagina']);
@@ -40,6 +41,13 @@ $num_paginas = ceil($num_total/$itens_por_pagina);
         
   </head>
     <body>
+        <script type="text/javascript">
+            function onSelectChange(x){
+                console.log(x);
+                window.location.href = "clientes.php?name=" + x;
+                
+            }
+        </script>
         <div id="interface">
             <header id="cabecalho">
                 <nav id="menu">
@@ -53,25 +61,17 @@ $num_paginas = ceil($num_total/$itens_por_pagina);
                 </nav>
             </header>
             <section id="corpo">
-                <form method="POST" action="_php/insert.php">
-                    <input type="hidden" name="nometabela" value="clientes"/>
-                    <input type="hidden" name="v1" value="CodCliente"/>
-                    <input type="hidden" name="v2" value="NomeCliente"/>
-                    <input type="hidden" name="v3" value="CPF"/>
-                    <input type="hidden" name="v4" value="Email"/>
-                    Nome: <input type="text" name="NomeCliente"/>
-                    Cpf: <input type="text" name="CPF"/>
-                    Email: <input type="text" name="Email"/>
-                    <input type="submit" value="Inserir"/>                    
+                <form action="" method="POST">
+                <select name="itens" onchange="onSelectChange(value);">
+                    <option selected>Itens por página</option>
+                    <option value="1">10</option>
+                    <option value="2">20</option>
+                    <option value="3">30</option>
+                    <option value="4">40</option>
+                    <option value="5">50</option>
+                </select>
                 </form>
-                <form method="POST" action="_php/paginacao.php">
-                    <input type="hidden" name="nometabela" value="clientes"/>
-                    <input type="hidden" name="v1" value="CodCliente"/>
-                    <input type="hidden" name="v2" value="NomeCliente"/>
-                    <input type="hidden" name="v3" value="CPF"/>
-                    <input type="hidden" name="v4" value="Email"/>
-                    <input type="submit" value="Localizar"/>
-                </form>
+                <?php $itens_por_pagina = isset($_GET['name'])?> <?php echo $itens_por_pagina?>;
             </section>
         </div>
         <div class="container-fluid">
