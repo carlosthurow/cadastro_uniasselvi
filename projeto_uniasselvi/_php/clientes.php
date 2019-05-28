@@ -1,21 +1,71 @@
 <?php
-include('_php/conexao.php');
+include('conexao.php');
 
+//nome tabela
+$nometabela = "clientes";
+$where = "";
+if ((isset($_POST["CodCliente"])) && ($_POST["CodCliente"] != "")) {
+    $cod_cliente = $_POST["CodCliente"];
+    $where .= "CodCliente = '$cod_cliente'"; 
+};
+if ((isset($_POST["NomeCliente"])) && ($_POST["NomeCliente"] != "")) {
+    $nom_cliente = $_POST["NomeCliente"];
+    $where .= "and NomeCliente like '%$nom_cliente%'"; 
+};
+if ((isset($_POST["CPF"])) && ($_POST["CPF"] != "")) {
+    $cpf = $_POST["CPF"];
+    $where .= "and CPF like '%$cpf%'"; 
+};
+if ((isset($_POST["Email"])) && ($_POST["Email"] != "")) {
+    $email = $_POST["Email"];
+    $where .= "and Email like '%$email%'"; 
+};
+$where = ltrim($where,'and ');
+
+echo $where;
 //itens por pagina
-$itens_por_pagina = 20;
+$itens_por_pagina = 2;
 
 //pagina atual
 $pagina = intval($_GET['pagina']);
+$ordem = $ordem = "order by CodCliente asc";
+if (isset($_GET["order"])) {
+    $order = $_GET["order"];
+    switch ($order) {
+        case 2:
+        $ordem = "order by NomeCliente asc";
+        break;
+        case 3:
+        $ordem = "order by CPF asc";
+        break;
+        case 4:
+        $ordem = "order by Email asc";
+        break;
+        default:
+        $ordem = "order by CodCliente asc";
+    }
+}
+
+
+
 
 //select no banco
-$sql_code = "select * from clientes LIMIT $pagina, $itens_por_pagina";
+if ($where == "") {
+    $sql_code = "select * from $nometabela $ordem LIMIT $pagina, $itens_por_pagina";
+}else {
+    $sql_code = "select * from $nometabela where $where $ordem LIMIT $pagina, $itens_por_pagina";
+}
 $retorno_query = $conn->prepare($sql_code);
 $retorno_query->execute();
 $list = $retorno_query->fetch(PDO::FETCH_ASSOC);
 $num = $retorno_query->rowCount();
 
 //total de objetos no banco
-$retorno_query2 = $conn->prepare("select * from clientes");
+if ($where == "") {
+    $retorno_query2 = $conn->prepare("select * from $nometabela");
+}else {
+    $retorno_query2 = $conn->prepare("select * from $nometabela where $where");
+}
 $retorno_query2->execute();
 $num_total = $retorno_query2->rowCount();
 
@@ -40,7 +90,7 @@ $num_paginas = ceil($num_total/$itens_por_pagina);
         
   </head>
     <body>
-        <div id="interface">
+        <!--<div id="interface">
             <header id="cabecalho">
                 <nav id="menu">
                     <h1>Menu Principal</h1>
@@ -73,20 +123,29 @@ $num_paginas = ceil($num_total/$itens_por_pagina);
                     <input type="submit" value="Localizar"/>
                 </form>
             </section>
-        </div>
+        </div>-->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4">
                     <h1>Clientes</h1>
+                    <form method="POST" action="
+                    
+                    
+                    ">
+                    Nome: <input type="text" name="NomeCliente"/>
+                    Cpf: <input type="text" name="CPF"/>
+                    Email: <input type="text" name="Email"/>
+                    <input type="submit" value="Pesquisar"/>
+                    </form> 
                     <?php if($num>0){?>
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <td>   </td>
-                                    <td>Código Cliente</td>
-                                    <td>Nome</td>
-                                    <td>CPF</td>
-                                    <td>E-mail</td>
+                                    <td><a href="?order=1">Código Cliente</td>
+                                    <td><a href="?order=2">Nome</td>
+                                    <td><a href="?order=3">CPF</td>
+                                    <td><a href="?order=4">E-mail</td>
                                     <td>Editar</td>
                                     <td>Excluir</td>
                                 </tr>
@@ -94,22 +153,27 @@ $num_paginas = ceil($num_total/$itens_por_pagina);
                             <tbody>
                                 <?php do{ ?>
                                 <tr>
-                                    <td><input type="checkbox" name="clientes_check" value="<?php echo $list['CodCliente'] ?>"></td>
+                                    <td><input type="checkbox" name="check" value="ch<?php echo $list['CodCliente'] ?>"></td>
                                     <td><?php echo $list['CodCliente']?></td>
                                     <td><?php echo $list['NomeCliente']?></td>
                                     <td><?php echo $list['CPF']?></td>
                                     <td><?php echo $list['Email']?></td>
-                                    <td>Editar</td>
-                                    <td>Excluir</td>
+                                    <td><form method="get" action="editar.php">
+                                    <input type="hidden" name="editar_input" value="ed<?php echo $list['CodCliente'] ?>"/>
+                                    <input type="hidden" name="editar_tabela" value="clientes"/>
+                                    <input type="submit" value="Editar"/>
+                                    </form></td>
+                                    <td><form method="get" action="excluir.php">
+                                    <input type="hidden" name="excluir_input" value="ex<?php echo $list['CodCliente'] ?>"/>
+                                    <input type="hidden" name="excluir_tabela" value="clientes"/>
+                                    <input type="submit" value="Excluir"/>
+                                    </form></td>
                                 </tr>
                                 <?php } while($list = $retorno_query->fetch(PDO::FETCH_ASSOC)); ?>
                             </tbody>
                         </table> 
                         <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                            <a class="page-link" href="clientes.php?pagina=0" tabindex="-1" aria-disabled="true">Primeira</a>
-                            </li>
                             <?php for($i=0;$i<$num_paginas;$i++) { 
                                 $estilo = "";
                                 if($pagina == $i) {
@@ -117,9 +181,7 @@ $num_paginas = ceil($num_total/$itens_por_pagina);
                                 }
                                 ?>
                             <li <?php echo $estilo; ?>><a class="page-link" href="clientes.php?pagina=<?php echo $i* $itens_por_pagina; ?>"><?php echo $i+1 ?></a></li>
-
                             <?php } ?>
-                            <a class="page-link" href="clientes.php?pagina=<?php echo $num_paginas+$itens_por_pagina?>">Ultima</a>
                             </li>
                         </ul>
                         </nav>

@@ -51,4 +51,6 @@ select * from pedidos_produtos;
 
 alter table clientes
 drop column bb;
+desc clientes;
 
+update clientes set NomeCliente = 'teste2', Email = 'teste2@gmail.com' where CodCliente = '2';

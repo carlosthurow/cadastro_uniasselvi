@@ -12,25 +12,22 @@
         
   </head>
     <body>
-        <div id="interface">
-            <header id="cabecalho">
-                <nav id="menu">
-                    <h1>Menu Principal</h1>
-                    <ul type="disc">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="clientes.html">Clientes</a></li>
-                        <li><a href="produtos.html">Produtos</a></li>
-                        <li><a href="pedidos.html">Pedidos</a></li>
-                    </ul>
-                </nav>
-            </header>
-            <section id="corpo">
-                    <ul type="disc">
-                        <li><a href="inserirProdutos.html">Adicionar</a></li>
-                        <li><a href="_php/produtos.php?pagina=0">Pesquisar</a></li>
-                    </ul>
+        <div id="interface_inserir">
+            <section id="corpo_inserir">
+                <form method="POST" action="_php/insert.php">
+                    <input type="hidden" name="nometabela" value="clientes"/>
+                    <input type="hidden" name="v1" value="CodCliente"/>
+                    <input type="hidden" name="v2" value="NomeCliente"/>
+                    <input type="hidden" name="v3" value="CPF"/>
+                    <input type="hidden" name="v4" value="Email"/>
+                    Nome: <input type="text" name="NomeCliente"/>
+                    Cpf: <input type="text" name="CPF"/>
+                    Email: <input type="text" name="Email"/>
+                    <input type="submit" value="Inserir"/>                    
+                </form>
             </section>
-        </div><!-- Optional JavaScript -->
+        </div>
+        <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -25,25 +25,10 @@
                 </nav>
             </header>
             <section id="corpo">
-                <form method="POST" action="_php/insert.php">
-                    <input type="hidden" name="nometabela" value="pedidos"/>
-                    <input type="hidden" name="v1" value="NumeroPedido"/>
-                    <input type="hidden" name="v2" value="DtPedido"/>
-                    <input type="hidden" name="v3" value="CodCliente"/>
-                    <input type="hidden" name="v4" value="SituacaoPedido"/>
-                    Data do pedido: <input type="text" name="DtPedido"/>
-                    Codigo Cliente: <input type="text" name="CodCliente"/>
-                    Situação do pedido: <input type="text" name="SituacaoPedido"/>
-                    <input type="submit" value="Inserir"/>                    
-                </form>
-                <form method="POST" action="_php/select2.php">
-                    <input type="hidden" name="nometabela" value="pedidos"/>
-                    <input type="hidden" name="v1" value="NumeroPedido"/>
-                    <input type="hidden" name="v2" value="DtPedido"/>
-                    <input type="hidden" name="v3" value="CodCliente"/>
-                    <input type="hidden" name="v4" value="SituacaoPedido"/>
-                    <input type="submit" value="Localizar"/>
-                </form>
+                    <ul type="disc">
+                        <li><a href="inserirPedidos.html">Adicionar</a></li>
+                        <li><a href="_php/pedidos.php?pagina=0">Pesquisar</a></li>
+                    </ul>
             </section>
         </div>
         <!-- Optional JavaScript -->

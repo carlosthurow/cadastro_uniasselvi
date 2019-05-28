@@ -25,7 +25,11 @@
                 </nav>
             </header>
             <section id="corpo">
-                <form method="POST" action="_php/insert.php">
+                <ul type="disc">
+                    <li><a href="inserirClientes.html">Adicionar</a></li>
+                    <li><a href="pesquisarClientes.html">Pesquisar</a></li>
+                </ul>
+                <!--<form method="POST" action="_php/insert.php">
                     <input type="hidden" name="nometabela" value="clientes"/>
                     <input type="hidden" name="v1" value="CodCliente"/>
                     <input type="hidden" name="v2" value="NomeCliente"/>
@@ -36,14 +40,14 @@
                     Email: <input type="text" name="Email"/>
                     <input type="submit" value="Inserir"/>                    
                 </form>
-                <form method="POST" action="_php/paginacao.php">
+                <form method="POST" action="_php/clientes.php?pagina=0">
                     <input type="hidden" name="nometabela" value="clientes"/>
                     <input type="hidden" name="v1" value="CodCliente"/>
                     <input type="hidden" name="v2" value="NomeCliente"/>
                     <input type="hidden" name="v3" value="CPF"/>
                     <input type="hidden" name="v4" value="Email"/>
                     <input type="submit" value="Localizar"/>
-                </form>
+                </form>-->
             </section>
         </div>
         <!-- Optional JavaScript -->
